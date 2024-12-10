@@ -1,10 +1,9 @@
 
-
-function TodoItem() {
+function TodoItem(props) {
     return (
       <li>
         <span>V</span>
-        <p>Terminar curso React</p>
+        <p>{props.text}</p>
         <span>X</span>
       </li>
     );
