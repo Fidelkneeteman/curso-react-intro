@@ -1,8 +1,8 @@
-
+import "./TodoSearch.css"
 
 function TodoSearch() {
     return (
-        <input placeholder="Ir al supermercado"/>
+        <input className= 'TodoSearch' placeholder="Ir al supermercado"/>
     );
   }
   export { TodoSearch };
