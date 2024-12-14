@@ -5,7 +5,7 @@ function TodoSearch({
     searchValue,
     setSearchValue,
 }) {
-    
+
     return (
         <input
             className= 'TodoSearch'
