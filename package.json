@@ -1,5 +1,8 @@
 {
-  "homepage": ".",
+  "homepage": "https://fidelkneeteman.github.io/curso-platzi-react",
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
+  },
   "name": "platzi-intro-react-base",
   "version": "0.1.0",
   "dependencies": {
