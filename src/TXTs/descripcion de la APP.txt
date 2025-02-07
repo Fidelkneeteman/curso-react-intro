@@ -1,0 +1,22 @@
+Estados de App TODOs
+
+Yo en mi aplicación tendo dos estados per se y estados derivados
+	ESTADOS: todos y searchValue. 
+		todos: son todos los todos que yo tengo. el valor inicial de todos es defaultTodos, que es un array con todos por defecto para que se muestren por default.
+		searchValue: ese estado tiene el valor del input de TodoSearch. la propiedad setSearchValue está llamada dentro del evento onChange en el input para que cada el escuchador de eventos llame al setSearchValue cada vez que se escriba en el input. 
+	ESTADOS DERIVADOS: 
+		completedTodos: lo que hace este estado derivado es filtrar, del estado todos (que ocntiene la totalidad de todods), los todos cuya propiedad completed sea true. y a ese array nuevo, que se genera al usar filter, le suma la propiedad .length para que le devuelva el número de elementos que tenga ese array resultante y entonces este estado derivado pueda ser usado en el TodoCounter para mostrar cuantos todos hay completados.
+		totalTodos: este estado derivado simplemente es igual a la totalidad de todos pasados por el método length para que devuelva el número de elementos y a eso pasarselo a TodoCounter como una prop para que este lo use en el span de su h1 para informar la totalidad de todos.
+		
+
+y, lo que realicé recien que fue un tercer estado derivado para poder mostrar una lista de todos que coincida con lo que se escriba en el input de TodoSearch y que se vaya modificando a medida que se escribe o se deja de escribir. 
+Para hacer una lista dinámica lo que hice fue crear un tercer estado derivado, que se llame searchedTodo y que sea igual a todos(que contiene la totalidad de todos) pero a ese todos pasarlo por el metodo filter para que me devuelva un array con los elementos que, en su propiedad text, incluyan lo que se escriba en el searchValue. Por ende, este estado derivado, deriva de los dos estados per se que tiene mi aplicación. del estado todos obtiene a totalidad de todos y le aplica el metodo filter y del estado searchValue usa su valor para filtrar, a través de includes() si hay todos que coincidan con la búsqueda de todos
+
+Entonces, repazando, con los estados erivados, hacíendole algun tipo de operación o cálculo a los estados per se, ya que estos tienen funciones actualizadoras que hacen que su valor vaya cambiando, yo pueda realizar interacciones o hacer que otros componentes de mi aplicación se vuelvan dinámicas y se couniquen entre si.
+Es por eso, que a los estados to los defino en el componente padre, para que, desde ahí, yo pueda ir modificando cada uno del resto de los componentes hijos de este componente padre. 
+Y a los estados derivados también los voy a definir, ya no como un array que tenga el estado y el actualizador de estado, dentro del componente padre de todos que, en este caso, es la app completa.
+
+
+Entonces, a mi lo que se me pedia era hacer de la lista que se muestra en la página de inicio, que yo cuando escriba en el input del SearchTodos, la lista de todos que se muestra vaya cambiando. Entonces,, a esta lista yo la asocié con el estado todo. Como todos tiene como valor inicial a defaultTodos, lo que va a hacer es mostrarme, de un principio, la lista de defaultTodos. Cuando yo haga modificaciones en mis todos, el estado "todos" va a cambiar (cosa que aún no hice). entonces, cuando cambie el estado todos, va a ir cambiando el estado todos, por lo que me va a mostrar la página, cuando yo no escriba nada, van a ser a totalidad de todos, que va a ser el valor de todos en ese momento.  Porque el valor inicial del estado todo es defaultTodos, ahora, cuandoo yo lame a la función actualizadora de todos al asociarle que se actualice el setTodos cuando yo haga clickc en la X o en la V de un todoItem, esta función actualizadora se llamará y hará que se agregue o se elimine un todo del estado todos y por ende, ese va a ser el nuevo valor de todos, lo que va a hacer que cambie la lista de todos que se me muestra en la pantalla de inicio.
+
+Una pista que tiró el profe en la última clase es la de exportar el estado todos para poder importarlo en tel TodoItem y de ahí asociarle la funcion actualizadora al evento onClick del item para que este haga agregar o quitar al todo de la lista de todos que se almacenan en el estado todos

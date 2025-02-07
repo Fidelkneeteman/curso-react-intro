@@ -1,0 +1,69 @@
+Yo estoy creando una app con react app. React es una biblioteca de javascript para crear interfaces de usuarios. Es una biblioteca que no es imperativa (te dice lo que hay que hacer) sino declarativa, digo o que quiero hacer y react lo entiende y lio realiza. 
+
+Esta app que estoy creando está divididida en archivos y documentos. La facilidad que me da react es que es una librería basada en componentes. Estos comonentes, a través de las props, que son parámetros que yo le puedo enviar a los componentes a la hora que los defino, donde puedo volverlos interactivos. Es decir, a ravés de estas props, yo puedo enviar información inámica a los componentes que estos, a la hora de ejecutarse, vana  recibi para volverse dinámicos. 
+Otra de las claves de react se encuentra en los estados. Los estados son objetos javascript a través de los cuales yo voy a recibir una variable que va  aser un arrayd. Este arrey va a tener dos posiciones, por un lado la primera posición va a ser el valor del estado. Este valor del estado va iniciar con el valor que yo ponga entre paréntesis en el useState8) que es un Custom Huck. La segunda posicion va a ser una funcion actualizadora de este estado, la cual va a empezar con set y luegova a llevar el nombre del estado. 
+Con los estados yo vuelvo interactiva a las aplicaciones, ya que la función actualizadora puede ser llamada luevgo de un evento causado por el usuario o, por ejemplo, por una recepcion de información a través de una base de datos.
+
+Otra de las ventajas que tiene react es el pseudolenguaje JSX. Con él, yo puedo redactar todos los componentes como si fuera un lenguaje HTML, que no lo es, pero que nos facilita el trabajo ya que su sintaxis es muy similar Con él yo puedo declarar que es lo que quiero que se vea en mi applicación y react, al renderizar el JSX a través de babel, va a cnvertir el pseudolenguaje de JS JSX en lenguaje HTML 
+
+React no puede renderizar todos los elementos (nodos JSX) al mismo momento, lo hace de a uno. Por eso, yo renderizo todo desde un componente padre que, en este caso va a ser App. Este componente es una función o una clase de js. En el yo voy a definir un montón de funciones y de estados que luegovoy a mandar como props a los elementos y componentes hijos para que estos tengan info determinada e incluso vayan actualizando estados y renderizandse de anera dinámica. 
+entonces, ates de retornar todos los componentes de mi app lo que yo voy a hacer es definir las funciones importantes y globales de mi app. Como así también los estados.. 
+
+
+
+En el casoo de TodoApp yo defino: 
+
+
+En principio todo lo relativo al LocalStorage. 
+
+Defino una función llamada useLocalStorage que va a recibir como argumentos el itemname (nombre de la versión de la app) y el initialValue (el array de todos inicial). 
+
+Dentro de esa función yo defino una variable que se llama localStorageItem. Ella, a través de un getitem, me ca a traer lo que esté en el local storage dentro del itenName( TODOS_V1). si no hay nada, queda como null-
+
+Después tengo un condicional que verifica si localStorageItem tiene contenido o no. Si no hay nada dentro del localStorge, crea una versión con setItem(itemName (que es 'TODOS_V1') y su contenido va a ser el array que está dentro de initialValue pero con el metodo JSON.stringufy para que pase el array a string y luego a parsedItem lo define con el valor de initialValue que, en este ccaso va a ser un array vacío. 
+	Pero si existe una versión en el LocalStorage, lo que hago es obtener el contenido de localStorageItem a través del método JSON.parse(localStorageIem) y se lo asigno a parsedItem. 
+	En ambos casos, el valor de parsedItem va a ser el de un array que contenga los todos. Siempre que yo quiera subir ese parsedItem a LS, lo voy a tener que stringifear y si lo quiero obtener del localStorage, lo voy a tener ue parsear. 
+
+Luego, creo un estado junto con su actualizador de estado para item (todo) y setItem (setTodo) y el cvalor inicial del estado item va  a ser el de parsedItem, coincidente con el valor de lo que hay en ese momento en el localStorage. 
+
+Por último, define una funciónn que se llama saveItem. Esta función lo que hace es actualizar el estado todos y el local storage al mismo tiempo. Por lo tano, dentro de ella se encuentra un localStorage.setItem(itemName ('TODOS_V1'), JSON.stringify(newItem)) y setItem(newItem). Con esa arrow funcion yo genero una doble función actualizadora y dentro de ella ejecuto la función actualizadora del estado item. 
+
+La función useLocalStorage retorna el estado item (el array todos) y la función actualizadora del estado saveItem como un array. 
+
+
+Función App(): 
+
+rapidamente defino a todos y a saveTodos como un estado y como una función actualizadora, y le asigo los valores de los retornos de la función useLocalStorage( con el primer parámetro, argumento llamado itenName ['TODOS_V1'] y con un array vacío como segunddo argumento. 
+Estado TODO con su funcion actualizadora setTodos. El valor inicial de todo va a ser parsedTodos.
+...
+
+
+Empecemos por los módulos y elementos de react:
+
+<TodoCounter> Es el h1 que va acontar cuantos todos tenes completados del total de todos. Por lo tanto, a ese elemento se le van a pasar como props completed y total. completed va a ser igual a completedTodos, una función definida arriba que va a filtrar el array de todos basándose en cual de todos tienen una propiedad completed como true a través del .length. total va a solo contar la cantidad de elementos que contiene el array todos (item dentro de la función de localStorage). 
+
+
+
+<TodoSearch> es un input donde yo voy a buscar en mi lista de todos el todo exacto que voy a necesitar. Para hacer interactivo y dinámico a este button, voy a pasarle, como prop, el searchValue (recordemos que el search value es un estado iniciado con '' cuyo valor va a ser actualizado con la función setSearcValue. A esta función de setSearchValue se la voy a pasasr como prop también. Vamos a entrar en el módulo TodoSearch: 
+
+function TodoSearch se declara como una función que recibe como parámetros searchValue y setSearchValue y que va a retornar un input que va a tener como clase (className) 'TodoSearch' (para el css), como placeholder 'ir al super', como valor del input el estado searchValue (pasado como props) y un eventListener llamado onChange (reacciona a la escritura del teclado) que va a ser una arrow funcion con el event pasado como parámetro y con la función actualizadora del estado setSearchValue, la cual va a recibir como parámetro el event.target(que va a ser el input).value(es decir, el atributo value) Por lo tanto, mientras escribo, se va escuchando el evento onChange, el cual va actualizando el valor del estado con lo que yo voy escribiendo y ese eveno va escuchando. por lo tanto, lo que se muestra en el input v cambiando tecla a tecla. 
+
+
+
+TodoList es una función que recibe como parámetros props llamadas children y retorna una lista desordenada (ul) con elementos hijos llamados children. 
+
+Por lo tanto, cuando yo llamo a ejecutar (desde el return de app a TodoList), como ese children pasa un {} donde le voy a aplicar el método map al array oriundo de searchedTodo (el array que filtro los todos buscados desde el input todoSearch) y voy a generar un nuevo array que va a transformar un array de datos (searcedTodos) en un array de elementos JSX que van a estar dentro del UL. 
+
+Por cada elemento iterado yo ejecuto la función TodoItem y le paso varias props: key (un elemento identficador, en este caso la props todo.text), text, completed, la props onComplete, que va a ser un eventListener que va a ejecutar la función completeTodo 
+La función completeTodo recibe como parámetro el texto del todo en específico que yo quiero completar (traido gracias a que el event listener lo escucha cuando hago click en el span del ícono) lo que hace es hacer una copia del array ubicado en el estado todo ([...todo]). luego, con el método findIndex, obtiene el índice del elemento cuyo text coincide con el argumento text pasado entre paréntesis. Una vez encontrado, utiliza es índice para acceder a ese elemento del array de newTodos, precisamente a la propiedad completed y la transforma a esa propiedad en true. Luego, ejecuta la función actualizadora del localStorage y del estado (saveTodos) y hace que newTodos ahora sea todos. 
+deleteTodo hace lo mismo pero con la propiedad splice lo que hace es eliminar ese elemento del array de todos. Luego, con la fucnión saveTodos actualiza el localStorage y el estado de todos. 
+A todo eso lo pasa como props del children de ul. 
+
+Si voy al módulo donde defino la función TodoItem, ahí voy a encontrar: 
+una función definida llamada TodoItem que retorna un <li>:
+ese li va a tener una clase (className) llamada 'TodoItem' que le va a dar estilos al item. 
+
+dentro de ese li voy a ejecutar la función CompleteIcon, y a esa función le voy a pasar como argumentos la propiedad de todos 'completed' y la función del evento onComplete, que cuando se ejecuta hace que se ejecute el completeTodo. 
+ese CompleteIcon, en el módulo donde yo defino al CompleteIcon que mando a ejecutar desde TodoIcon, cuando la defino, le paso esas props completed y onColmplete y hago que su return ejecute la función TodoIcon con los argumentos de type 'check', color = hago que sea dinámica según si la propiedad es true (?green) o false (:gray) y le paso a la props que tiene de parámetro onClick el argumento de onComplete para que al yo hacer click en el todoIcon se ejecute la función completeTodo y no la función deleteTodo.  
+Módulo donde defino TodoIcon: defino una función que reciba como parámetros las propiedades type, color y onClick. y este TodoIcon retorna un span con un className denominado Icon-container y un Icon-container-type, que cuando yo ejecuto esa función desde completeIcon va a ser de type check (Icon-container-check) y sino de type delete (icon-type-delete, y la otra prop que le paso es la de onClick con el valor de onClick. dentro del span le voy a pasar un SVG, ese svg va a estar contenido dentro de una variable que va a ser igual a un objeto con dos elementos, dos funciones en este caso, entonces yo llamo a la ejecución con el type en corchetes cuadrados, para acceder a ese elemento en particular, y con el color como argumento, para que ese color se pase cmo el valor de fill, siendo que el valor de fill es lo que le va dar color al svg. 
+ 
